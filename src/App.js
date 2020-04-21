@@ -1,44 +1,59 @@
-import React, { useState } from "react";
+import React, { Component } from "react";
 import "./App.css";
 import Person from "./Person/Person";
 
-const app = (props) => {
-  const [personState, setPersonsState] = useState({
+class App extends Component {
+  state = {
     persons: [
       { name: "Hari", age: 21 },
       { name: "Rekha", age: 18 },
       { name: "Harsha", age: 28 },
     ],
-  });
+  };
 
-  const switchNameHandler = () => {
+  switchNameHandler = (newName) => {
     // this.state.persons[0].name = "hariprasadh";
-    setPersonsState({
+    this.setState({
       persons: [
-        { name: "Hari Govind", age: 22 },
+        { name: newName, age: 22 },
         { name: "Rekha", age: 19 },
         { name: "Harsha", age: 18 },
       ],
     });
   };
 
-  return (
-    <div className="App">
-      <h1>Hello World!</h1>
-      <button onClick={switchNameHandler}>Name Change</button>
-      <Person
-        name={personState.persons[0].name}
-        age={personState.persons[0].age}
-      />
-      <Person
-        name={personState.persons[1].name}
-        age={personState.persons[1].age}
-      >
-        School
-      </Person>
-    </div>
-  );
-};
+  nameChangedHandler = (event) => {
+    this.setState({
+      persons: [
+        { name: event.target.value, age: 22 },
+        { name: "Rekha", age: 19 },
+        { name: "Harsha", age: 18 },
+      ],
+    });
+  };
 
-export default app;
+  render() {
+    return (
+      <div className="App">
+        <h1>Hello World!</h1>
+        <button onClick={this.switchNameHandler.bind(this, "Hari Govind")}>
+          Name Change
+        </button>
+        <Person
+          name={this.state.persons[0].name}
+          age={this.state.persons[0].age}
+          changed={this.nameChangedHandler}
+        />
+        <Person
+          name={this.state.persons[1].name}
+          age={this.state.persons[1].age}
+          click={this.switchNameHandler.bind(this, "Hari")}
+        >
+          School
+        </Person>
+      </div>
+    );
+  }
+}
 
+export default App;

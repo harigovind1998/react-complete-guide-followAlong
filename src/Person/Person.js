@@ -1,5 +1,5 @@
 import React from "react";
-import "./Person.css";
+import cssClasses from "./Person.css";
 import Radium from "radium";
 
 const person = (props) => {
@@ -9,7 +9,7 @@ const person = (props) => {
     },
   };
   return (
-    <div className="Person" style={stylep}>
+    <div className={cssClasses.Person} style={stylep}>
       <p onClick={props.click}>
         I'm a {props.name} and I am {props.age}!
       </p>

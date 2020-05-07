@@ -4,11 +4,12 @@ import Radium, { StyleRoot } from "radium";
 import CSSclasses from "./App.css";
 import Persons from "../Components/Persons/Persons";
 import Cockpit from "../Components/Cockpit/Cockpit";
+import WithClass from "../Hoc/WithClass";
 
 class App extends Component {
   constructor(props) {
     super(props);
-    console.log('[App.js] constructor');
+    console.log("[App.js] constructor");
   }
   state = {
     persons: [
@@ -17,7 +18,7 @@ class App extends Component {
       { id: "3", name: "Harsha", age: 28 },
     ],
     showPerson: false,
-    showCockpit: true
+    showCockpit: true,
   };
 
   deletePersonHandler = (personIndex) => {
@@ -61,16 +62,26 @@ class App extends Component {
     }
 
     return (
-      <StyleRoot className={CSSclasses.App}>
-        <button onClick={()=>{this.setState({showCockpit: !this.state.showCockpit})}}>Toggle Cockpit!</button>
-        {this.state.showCockpit ? <Cockpit
-          showButton={this.state.showPerson}
-          persons={this.state.persons}
-          clicked={this.togglePersonHandler}
-        />:null}
-        
-        <div className={CSSclasses.App}>{persons}</div>
-      </StyleRoot>
+      <WithClass class={CSSclasses.App}>
+        <button
+          onClick={() => {
+            this.setState((prevState, props) => {
+              return { showCockpit: !prevState.showCockpit };
+            });
+          }}
+        >
+          Toggle Cockpit!
+        </button>
+        {this.state.showCockpit ? (
+          <Cockpit
+            showButton={this.state.showPerson}
+            persons={this.state.persons}
+            clicked={this.togglePersonHandler}
+          />
+        ) : null}
+
+        <div>{persons}</div>
+      </WithClass>
     );
   }
 }

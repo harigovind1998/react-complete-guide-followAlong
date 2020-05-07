@@ -1,7 +1,12 @@
-import React from "react";
+import React, {useEffect, useRef} from "react";
 import cssClasses from './Cockpit.css'
 
 const cockpit = (props) => {
+    const btnRef = useRef(null);
+
+    useEffect(()=>{
+        btnRef.current.click();
+    }, []);
     const classes = [];
     let btnClass ='';
     if (props.showButton){
@@ -17,7 +22,7 @@ const cockpit = (props) => {
   return (
     <div className={cssClasses.Cockpit}>
       <h1 className={classes.join(" ")}>Hello World!</h1>
-      <button onClick={props.clicked} >
+      <button ref={btnRef} onClick={props.clicked} >
         Toggle show persons
       </button>
     </div>

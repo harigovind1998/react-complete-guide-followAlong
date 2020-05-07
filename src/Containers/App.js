@@ -5,6 +5,7 @@ import CSSclasses from "./App.css";
 import Persons from "../Components/Persons/Persons";
 import Cockpit from "../Components/Cockpit/Cockpit";
 import WithClass from "../Hoc/WithClass";
+import AuthContext from "../Context/Auth-context";
 
 class App extends Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class App extends Component {
     ],
     showPerson: false,
     showCockpit: true,
+    authenticated: false,
   };
 
   deletePersonHandler = (personIndex) => {
@@ -49,6 +51,10 @@ class App extends Component {
     });
   };
 
+  loginHandler = () => {
+    this.setState({ authenticated: true });
+  };
+
   render() {
     let persons = null;
     if (this.state.showPerson) {
@@ -72,18 +78,25 @@ class App extends Component {
         >
           Toggle Cockpit!
         </button>
-        {this.state.showCockpit ? (
-          <Cockpit
-            showButton={this.state.showPerson}
-            persons={this.state.persons}
-            clicked={this.togglePersonHandler}
-          />
-        ) : null}
+        <AuthContext.Provider
+          value={{
+            authenticated: this.state.authenticated,
+            login: this.loginHandler
+          }}
+        >
+          {this.state.showCockpit ? (
+            <Cockpit
+              showButton={this.state.showPerson}
+              persons={this.state.persons}
+              clicked={this.togglePersonHandler}
+            />
+          ) : null}
 
-        <div>{persons}</div>
+          <div>{persons}</div>
+        </AuthContext.Provider>
       </WithClass>
     );
   }
 }
 
-export default Radium(App);
+export default App;

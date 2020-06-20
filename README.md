@@ -1,3 +1,7 @@
+## Summary
+
+This repo contains all the development done while following [Udemy's "React - The complete guide"](https://www.udemy.com/course/react-the-complete-guide-incl-redux/), taught by Maximilian Schwarzmüller. This is not a personal project per say, but rather a way to track and backup my progress.
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
